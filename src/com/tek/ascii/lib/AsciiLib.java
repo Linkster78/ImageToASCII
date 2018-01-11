@@ -68,7 +68,7 @@ public class AsciiLib {
 	}
 	
 	public static void loadBrightnessTable() {
-		int highest = 255;
+		int highest = 0;
 		
 		for(int i = 33; i <= 254; i++) {
 			char c = (char)i;
@@ -113,7 +113,7 @@ public class AsciiLib {
 		
 		for(char c : brightnessTable.keySet()) {
 			double bn = brightnessTable.get(c);
-			bn = (255 - bn) / highest * 255;
+			bn = 255 - (bn / highest * 255);
 			brightnessTable.put(c, (int)bn);
 		}
 	}
