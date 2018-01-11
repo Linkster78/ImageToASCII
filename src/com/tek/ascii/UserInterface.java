@@ -41,27 +41,6 @@ public class UserInterface {
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		
-		JButton chooseimage = new JButton("Choose Image");
-		chooseimage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				JFileChooser fileChooser = new JFileChooser();
-				
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("Image", "png", "jpg", "jpeg");
-				
-				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-				fileChooser.setFileFilter(filter);
-				
-				fileChooser.setAcceptAllFileFilterUsed(false);
-				
-				if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					file = fileChooser.getSelectedFile();
-				}
-			}
-		});
-		chooseimage.setBounds(15, 52, 179, 29);
-		frame.getContentPane().add(chooseimage);
-		
 		JSpinner spinnerx = new JSpinner();
 		spinnerx.setBounds(93, 95, 101, 26);
 		frame.getContentPane().add(spinnerx);
@@ -114,6 +93,36 @@ public class UserInterface {
 		});
 		btnNewButton.setBounds(15, 172, 179, 29);
 		frame.getContentPane().add(btnNewButton);
+		
+		JButton chooseimage = new JButton("Choose Image");
+		chooseimage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFileChooser fileChooser = new JFileChooser();
+				
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Image", "png", "jpg", "jpeg");
+				
+				fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+				fileChooser.setFileFilter(filter);
+				
+				fileChooser.setAcceptAllFileFilterUsed(false);
+				
+				if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					file = fileChooser.getSelectedFile();
+				}
+				
+				try {
+					BufferedImage img = ImageIO.read(file);
+					
+					spinnerx.setValue(img.getWidth());
+					spinnery.setValue(img.getHeight());
+				}catch(Exception e) {
+					file = null;
+				}
+			}
+		});
+		chooseimage.setBounds(15, 52, 179, 29);
+		frame.getContentPane().add(chooseimage);
 		
 		JLabel lblImageAscii = new JLabel("Image 2 ASCII");
 		lblImageAscii.setHorizontalAlignment(SwingConstants.CENTER);
